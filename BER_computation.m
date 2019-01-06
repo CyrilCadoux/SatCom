@@ -1,22 +1,23 @@
 
 %% BER computation in function of Eb_N0
 
-Eb_N0 = 8;%db
-Eb_N0_dec = 10^(Eb_N0/10);
+Eb_N0 = 14;%db
+Eb_N0_lin = 10^(Eb_N0/10);
 
-fprintf('\n\n===== WITH Eb/N0 = %.2f dB =====\n\n', Eb_N0);
+fprintf('\n\n\n\n\n===== WITH Eb/N0 = %.2f dB =====\n', Eb_N0);
 
-fprintf('AWGN BPSK and DPSK, Pb = %d \n\n', 0.5*exp(-Eb_N0_dec));
-fprintf('AWGN BFSK, Pb = %d \n\n', 0.5*exp(-0.5*Eb_N0_dec));
+fprintf('\n-------------------\n')
+fprintf('AWGN BPSK and QPSK, Pb = %d \n\n', 0.5*exp(-Eb_N0_lin));
+fprintf('AWGN BFSK, Pb = %d \n', 0.5*exp(-0.5*Eb_N0_lin));
 
-
-fprintf('Rayleigh BPSK, Pb = %d \n\n', 0.5*(1-sqrt(Eb_N0_dec/(1 + Eb_N0_dec))));
-fprintf('Rayleigh DPSK, Pb = %d \n\n', 1/(2+2*Eb_N0_dec));
-fprintf('Rayleigh BFSK, Pb = %d \n\n',1/(2+Eb_N0_dec));
+fprintf('-------------------\n')
+fprintf('Rayleigh BPSK, Pb = %d \n\n', 0.5*(1-sqrt(Eb_N0_lin/(1 + Eb_N0_lin))));
+fprintf('Rayleigh QPSK, Pb = %d \n\n', 1/(2+2*Eb_N0_lin));
+fprintf('Rayleigh BFSK, Pb = %d \n\n',1/(2+Eb_N0_lin));
 
 
 %% Eb_N0 in function of BER
-Pb = 1e-8;
+Pb = 1e-6;
 
 fprintf('\n\n===== WITH Pb = %d =====\n\n', Pb);
 
@@ -45,7 +46,7 @@ fprintf('Rayleigh BFSK,\nEb_N0 = %.3f [lin]\nEb_N0 = %.3f [db]\n\n', a, b);
 
 %% CODED : EB_N0 in function of BER
 
-Pb = 1e-8;
+Pb = 1e-6;
 
 % We need 2 coded bits to transmit 1 bit of pure information
 % => Hence Eb will correspond to 2Ec = Ec/0.5
@@ -64,7 +65,9 @@ k = 1;
 
 % One term approximation for D
 % For higer approximation, use the function in the python nb
-D = power(Pb/18,0.1);
+% D = power(Pb/18,0.1);
+
+D = 0.184;
 fprintf("\n\n\n\n=======================\n")
 fprintf("\nThe 1 term approximation:\nD = %.4f\n", D );
 
@@ -75,15 +78,15 @@ fprintf("\n\n------- SOFT PART -------\n\n");
 Ec_N0 = -log(D);
 fprintf("AWGN BPSK soft decision :\n");
 fprintf("\tEc_N0 = %.2f [lin]\n", Ec_N0);
-fprintf("\tEb_N0 = %.2f [lin]\n", Ec_N0/k/r);
-fprintf("\tEb_N0 = %.1f [db]\n", dec_to_db(Ec_N0/r/k));
+fprintf("\tEb_N0 = %.2f [lin]\n", Ec_N0/r);
+fprintf("\tEb_N0 = %.1f [db]\n", dec_to_db(Ec_N0/r));
 
 % Soft Rayleigh
 Ec_N0 = (1-D)/D;
 fprintf("\nRAYLEIGH BPSK soft decision:\n");
 fprintf("\tEc_N0 = %.3f [lin]\n", Ec_N0);
 fprintf("\tEb_N0 = %.3f [lin]\n", Ec_N0/r/k);
-fprintf("\tEb_N0 = %.1f [dB]\n", dec_to_db(Ec_N0/r/k));
+fprintf("\tEb_N0 = %.1f [dB]\n", dec_to_db(Ec_N0/r));
 
 
 % -------- Now for hard decisions : ---------
@@ -96,8 +99,8 @@ fprintf("hard eps = %f\n\n", hard_eps);
 Ec_N0 = -log(2*hard_eps);
 fprintf("AWGN BPSK hard decision :\n");
 fprintf("\tEc_N0 = %.2f [lin]\n", Ec_N0);
-fprintf("\tEb_N0 = %.2f [lin]\n", Ec_N0/r/k);
-fprintf("\tEb_N0 = %.1f [db]\n", dec_to_db(Ec_N0/r/k));
+fprintf("\tEb_N0 = %.2f [lin]\n", Ec_N0/r);
+fprintf("\tEb_N0 = %.1f [db]\n", dec_to_db(Ec_N0/r));
 
 % Hard Rayleigh
 temp = (1-2*hard_eps)^2;
