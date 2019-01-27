@@ -17,7 +17,7 @@ fprintf('Rayleigh BFSK, Pb = %d \n\n',1/(2+Eb_N0_lin));
 
 
 %% Eb_N0 in function of BER
-Pb = 9.1e-4;
+Pb = 1e-2;
 
 fprintf('\n\n===== WITH Pb = %d =====\n\n', Pb);
 
