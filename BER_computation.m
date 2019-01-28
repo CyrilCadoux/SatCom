@@ -17,7 +17,7 @@ fprintf('Rayleigh BFSK, Pb = %d \n\n',1/(2+Eb_N0_lin));
 
 
 %% Eb_N0 in function of BER
-Pb = 1e-2;
+Pb = 1e-6;
 
 fprintf('\n\n===== WITH Pb = %d =====\n\n', Pb);
 
@@ -72,7 +72,7 @@ fprintf("coding rate (#InputBits / #OutputBits) = %.2f\n", r);
 % For higer approximation, use the function in the python nb
 % D = power(Pb/18,0.1);
 
-D = 0.119;
+D = 0.184;
 fprintf("\nThe x-term approximation:\nD = %.4f\n", D );
 
 
