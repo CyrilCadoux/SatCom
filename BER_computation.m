@@ -48,7 +48,7 @@ fprintf('Rayleigh BFSK,\nEb_N0 = %.3f [lin]\nEb_N0 = %.3f [db]\n\n', a, b);
 
 fprintf("\n\n\n\n\n\n\n\n\n\n\n\n=======================\n")
 
-Pb = 1e-6;
+Pb = 1e-8;
 fprintf("Pb = %.2d\n", Pb);
 
 
@@ -68,12 +68,8 @@ fprintf("coding rate (#InputBits / #OutputBits) = %.2f\n", r);
 % QPSK can be modeled as BPSK, 'k' is always considered to be 1 (cf homework 3)
 
 
-% One term approximation for D (Ok when BER is not that small)
-% For higer approximation, use the function in the python nb
-% D = power(Pb/18,0.1);
-
-D = 0.184;
-fprintf("\nThe x-term approximation:\nD = %.4f\n", D );
+D = compute_D(Pb);
+fprintf("\nThe 3-term approximation:\nD = %.4f\n", D );
 
 
 fprintf("\n\n------- SOFT PART -------\n\n");
